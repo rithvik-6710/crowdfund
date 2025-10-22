@@ -1,35 +1,35 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Crowdfunding Platform</title>
-  <link rel="stylesheet" href="styles.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Crowdfunding for Nonprofits</title>
+  <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
-  <header>
-    <h1>Crowdfunding for Non-Profits </h1>
-  </header>
+  <nav>
+    <h1>Crowdfund 🌍</h1>
+    <button id="viewProjectsBtn">View All Projects</button>
+  </nav>
 
   <main>
     <section class="form-section">
       <h2>Start a New Project</h2>
       <form id="projectForm">
-        <input type="text" id="title" placeholder="Project Title" required>
+        <input type="text" id="title" placeholder="Project Title" required />
         <textarea id="description" placeholder="Project Description" required></textarea>
-        <input type="number" id="goalAmount" placeholder="Goal Amount (₹)" required>
-        <input type="text" id="category" placeholder="Category (Education, Health, etc.)">
-        <input type="text" id="ownerName" placeholder="Owner Name">
-        <input type="date" id="deadline" required>
+        <input type="number" id="goalAmount" placeholder="Goal Amount (₹)" required />
+        <input type="text" id="category" placeholder="Category (e.g., Education, Health)" />
+        <input type="text" id="location" placeholder="Location" />
         <button type="submit">Add Project</button>
       </form>
-      <button id="viewProjectsBtn">📋 View All Projects</button>
+    </section>
+
+    <section class="projects-section" id="projectsSection">
+      <h2>All Projects</h2>
+      <div id="projectsList"></div>
     </section>
   </main>
-
-  <footer>
-    <p>© 2025 Crowdfund for Non-Profits</p>
-  </footer>
 
   <script src="script.js"></script>
 </body>
