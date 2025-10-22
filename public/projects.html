@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Project Log</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="container">
+    <h1>📜 Project Log</h1>
+    <button onclick="window.location.href='/'" class="backBtn">← Back</button>
+    <div id="projectList"></div>
+  </div>
+
+  <script>
+    async function loadProjects() {
+      const res = await fetch('/api/projects');
+      const projects = await res.json();
+      const container = document.getElementById('projectList');
+      container.innerHTML = '';
+
+      projects.forEach(p => {
+        const div = document.createElement('div');
+        div.className = 'project-card';
+        div.innerHTML = `
+          <h2>${p.title}</h2>
+          <p>${p.description}</p>
+          <p><b>Goal:</b> ₹${p.goalAmount}</p>
+          <p><b>Collected:</b> ₹${p.collectedAmount}</p>
+          <input type="number" id="amt-${p._id}" placeholder="Enter donation" min="1">
+          <button onclick="donate('${p._id}')">Donate</button>
+        `;
+        container.appendChild(div);
+      });
+    }
+
+    async function donate(id) {
+      const amt = document.getElementById(`amt-${id}`).value;
+      if (!amt) return alert('Please enter amount');
+
+      await fetch(`/api/donate/${id}`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ amount: Number(amt) })
+      });
+
+      loadProjects(); // Refresh live
+    }
+
+    loadProjects();
+  </script>
+</body>
+</html>

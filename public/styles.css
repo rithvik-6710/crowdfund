@@ -1,43 +1,128 @@
 body {
-  font-family: Arial, sans-serif;
-  background: #f8fafc;
+  font-family: "Poppins", sans-serif;
+  background: #f7f9fc;
   margin: 0;
   padding: 20px;
+  color: #333;
 }
 
-.container {
-  max-width: 700px;
-  margin: auto;
+h1 {
+  text-align: center;
+  color: #2c3e50;
+}
+
+form {
+  max-width: 400px;
+  margin: 20px auto;
   background: #fff;
   padding: 20px;
   border-radius: 10px;
-  box-shadow: 0 0 10px rgba(0,0,0,0.1);
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
 }
 
-h1, h2 { text-align: center; }
-
-.create input {
-  display: block;
+input, textarea, button {
   width: 100%;
-  margin: 8px 0;
-  padding: 8px;
+  margin: 10px 0;
+  padding: 10px;
+  border-radius: 5px;
+  border: 1px solid #ddd;
 }
 
 button {
-  background: #2563eb;
+  background-color: #3498db;
   color: white;
+  font-weight: bold;
   border: none;
-  padding: 10px;
-  width: 100%;
   cursor: pointer;
-  border-radius: 6px;
 }
 
-button:hover { background: #1e40af; }
+button:hover {
+  background-color: #2980b9;
+}
 
-.campaign {
-  border: 1px solid #ddd;
-  padding: 10px;
+.view-btn {
+  display: block;
+  width: 200px;
+  margin: 20px auto;
+  background-color: #2ecc71;
+}
+
+.project-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 15px;
+  justify-content: center;
+  margin-top: 30px;
+}
+
+.project-card {
+  background: white;
+  padding: 15px;
+  width: 250px;
+  border-radius: 10px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+.project-card h3 {
+  margin-top: 0;
+  color: #2c3e50;
+}
+.project-card p {
+  color: #555;
+}
+.project-card .amount {
+  font-weight: bold;
+  color: #27ae60;
+}
+.project-card .date {
+  font-size: 0.9em;
+  color: #999;
+}
+.project-card .status {
   margin-top: 10px;
-  border-radius: 6px;
+  padding: 5px;
+  border-radius: 5px;
+  text-align: center;
+  color: white;
+}
+.project-card .status.active {
+  background-color: #27ae60;
+}
+.project-card .status.completed {
+  background-color: #2980b9;
+}
+.project-card .status.failed {
+  background-color: #e74c3c;
+}
+.project-card .status.pending {
+  background-color: #f39c12;
+}
+.project-card .status.cancelled {
+  background-color: #7f8c8d;
+}
+
+.no-projects {
+  text-align: center;
+  color: #999;
+  margin-top: 50px;
+}
+.no-projects img {
+  width: 150px;
+  opacity: 0.5;
+  margin-top: 20px;
+}
+.no-projects p {
+  font-size: 1.2em;
+}
+.no-projects a {
+  display: inline-block;
+  margin-top: 15px;
+  padding: 10px 20px;
+  background-color: #3498db;
+  color: white;
+  text-decoration: none;
+  border-radius: 5px;
+}
+.no-projects a:hover {
+  background-color: #2980b9;
 }
