@@ -1,10 +1,14 @@
 const mongoose = require('mongoose');
 
-const projectSchema = new mongoose.Schema({
+const ProjectSchema = new mongoose.Schema({
   title: String,
   description: String,
   goalAmount: Number,
-  collectedAmount: { type: Number, default: 0 }
+  collectedAmount: { type: Number, default: 0 },
+  category: String,
+  ownerName: String,
+  deadline: String,
+  createdAt: { type: Date, default: Date.now }
 });
 
-module.exports = mongoose.model('Project', projectSchema);
+module.exports = mongoose.model('Project', ProjectSchema);

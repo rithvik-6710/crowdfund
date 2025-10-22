@@ -1,67 +1,52 @@
-const form = document.getElementById('projectForm');
-const projectList = document.getElementById('projectList');
-const viewBtn = document.getElementById('viewProjectsBtn');
-
-// Add new project
-form.addEventListener('submit', async (e) => {
+document.getElementById('projectForm').addEventListener('submit', async (e) => {
   e.preventDefault();
 
-  const title = document.getElementById('title').value;
-  const description = document.getElementById('description').value;
-  const goalAmount = document.getElementById('goalAmount').value;
+  const project = {
+    title: document.getElementById('title').value,
+    description: document.getElementById('description').value,
+    goalAmount: Number(document.getElementById('goalAmount').value),
+    category: document.getElementById('category').value,
+    ownerName: document.getElementById('ownerName').value,
+    deadline: document.getElementById('deadline').value,
+  };
 
-  const response = await fetch('/api/projects', {
+  const res = await fetch('/api/projects', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ title, description, goalAmount, collectedAmount: 0 })
+    body: JSON.stringify(project)
   });
 
-  const data = await response.json();
-  alert('✅ Project added successfully!');
-  form.reset();
-  loadProjects(); // refresh list
+  if (res.ok) {
+    alert('🎉 Project added successfully!');
+    e.target.reset();
+  } else {
+    alert('❌ Failed to add project');
+  }
 });
 
-// Load all projects
+document.getElementById('viewProjectsBtn').addEventListener('click', () => {
+  window.location.href = '/projects';
+});
 async function loadProjects() {
-  const response = await fetch('/api/projects');
-  const projects = await response.json();
+  const res = await fetch('/api/projects');
+  const projects = await res.json();
+  const projectsContainer = document.getElementById('projectsContainer');
+  projectsContainer.innerHTML = '';
 
-  projectList.innerHTML = projects.map(p => `
-    <div class="project-card">
+  projects.forEach(p => {
+    const div = document.createElement('div');
+    div.classList.add('project-card');
+    div.innerHTML = `
       <h3>${p.title}</h3>
       <p>${p.description}</p>
-      <p><b>Goal:</b> ₹${p.goalAmount}</p>
-      <p><b>Collected:</b> ₹${p.collectedAmount}</p>
-      <input type="number" id="donate-${p._id}" placeholder="Enter amount" />
-      <button onclick="donate('${p._id}')">Donate</button>
-    </div>
-  `).join('');
-}
-
-// Donate to a project
-async function donate(id) {
-  const amountInput = document.getElementById(`donate-${id}`);
-  const amount = parseInt(amountInput.value);
-
-  if (!amount || amount <= 0) {
-    alert('⚠️ Please enter a valid amount');
-    return;
-  }
-
-  const response = await fetch(`/api/donate/${id}`, {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ amount })
+      <p><strong>Goal:</strong> ₹${p.goalAmount}</p>
+      <p><strong>Collected:</strong> ₹${p.collectedAmount}</p>
+      <p><strong>Category:</strong> ${p.category || 'General'}</p>
+      <p><strong>Owner:</strong> ${p.ownerName || 'Anonymous'}</p>
+      <p><strong>Deadline:</strong> ${p.deadline}</p>
+    `;
+    projectsContainer.appendChild(div);
   });
-
-  const data = await response.json();
-  alert('🎉 Donation successful!');
-  loadProjects();
 }
 
-// Button click → show all projects
-viewBtn.addEventListener('click', loadProjects);
-
-// Load automatically when page opens
-loadProjects();
+loadProjects();       
